@@ -1,14 +1,15 @@
 <template>
     <header>
-        <h1>The Secret Garden</h1>
-        <div class="cart">
-            cart ()
-        </div>
+        <NuxtLink to="/">
+            <h1>The Secret Garden</h1>
+        </NuxtLink>
+        <NuxtLink to="/cart">Cart ({{ cartStore.totalProducts }})</NuxtLink>
     </header>
 </template>
 
 <script setup lang="ts">
-
+import { useCartStore } from '~/stores/cart';
+const cartStore = useCartStore()
 </script>
 
 <style lang="scss" scoped>

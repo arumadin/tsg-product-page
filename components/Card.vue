@@ -11,9 +11,9 @@
             </div>
             <div class="card__desc">
                 <div class="card__title">{{ product.title }}</div>
-                <div class="card__price">{{ product.price }}</div>
+                <div class="card__price">${{ product.price }}</div>
             </div>
-            <!-- <div v-if="card.label.length > 0" class="card__label">{{ card.label }}</div> -->
+            <div v-if="product.label.length > 0" class="card__label">{{ product.label }}</div>
         </NuxtLink>
         <div class="btn btn--addcart" @click.prevent="cartStore.add(product.id)">add to cart</div>
     </div>
@@ -28,11 +28,20 @@ const cartStore = useCartStore()
 <style lang="scss" scoped>
 .card {
     position: relative;
+    padding-bottom: 50px;
+
+    @include nonDesktop {
+        padding-bottom: 0;
+    }
+
+    a {
+        color: $dark-grey;
+    }
 
     .btn--addcart {
         position: absolute;
         z-index: -1;
-        bottom: -50px;
+        bottom: -10px;
         transition: all 0.3s ease-in;
         width: calc(100% - 40px);
         margin: 0 20px;
@@ -46,7 +55,7 @@ const cartStore = useCartStore()
 
     &:hover {
         .btn--addcart {
-            bottom: -40px;
+            bottom: 0;
             z-index: 1;
             opacity: 1;
         }
@@ -57,9 +66,13 @@ const cartStore = useCartStore()
         text-decoration: none;  
         display: flex;
         flex-direction: column;
-        background-color: gray;
+        background-color: white;
         min-height: 400px;
         height: 100%;
+
+        @include mobile {
+            min-height: auto
+        }
     }
 
     &__image {
@@ -84,7 +97,7 @@ const cartStore = useCartStore()
         flex-wrap: wrap;
         flex-grow: 1;
         z-index: 2;
-        padding: 10px 10px 30px;
+        padding: 20px 20px 30px;
     }
 
     &__title {
@@ -100,7 +113,7 @@ const cartStore = useCartStore()
         position: absolute;
         top: 10px;
         right: 10px;
-        background-color: wheat;
+        background-color: $yellow;
         border-radius: 20px;
         padding: 5px 10px
     }

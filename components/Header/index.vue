@@ -16,5 +16,7 @@ const cartStore = useCartStore()
 header {
     display: flex;
     justify-content: center;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 </style>

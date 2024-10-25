@@ -16,6 +16,8 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@nuxt/fonts": "^0.10.2",
+    "@nuxt/icon": "^1.5.7",
     "@nuxt/image": "^1.8.1",
     "@pinia/nuxt": "^0.5.5",
     "nuxt-swiper": "^1.2.2"

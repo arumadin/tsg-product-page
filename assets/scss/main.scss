@@ -1,8 +1,28 @@
 @import '_mixin.scss';
+@import '_var.scss';
 
 body {
     margin: 0;
+    font-family: 'Fredoka';
+    background-color: $bg-white;
+    color: $dark-grey;
 }
+
+a {
+    text-decoration: none;
+    &:visited {
+        color: $dark-grey;
+        text-decoration: none;
+    }
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Bodoni Moda';
+    font-weight: 500;
+}
+
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -18,7 +38,7 @@ button,
     padding: 8px 20px;
     border-radius: 20px;
     box-sizing: border-box;
-    background-color: aqua;
+    background-color: $light-blue;
     border: 0;
     text-align: center;
     cursor: pointer;

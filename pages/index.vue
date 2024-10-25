@@ -31,12 +31,15 @@ const data = productStore.allProducts
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(auto, 1fr);
-    gap: 80px 20px;
+    gap: 20px 30px;
 
     @include nonDesktop {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
         grid-template-rows: auto;
+    }
+
+    @include mobile {
+        gap: 30px 20px;
     }
 }
 </style>

@@ -15,10 +15,15 @@
 <script setup lang="ts">
 // import data1 from '../data'
 import { type ProductResponse } from '~/types/types';
+// import { useCartStore } from '~/stores/cart';
+import { useProductsStore } from '~/stores/products';
+// const cartStore = useCartStore()
+const productStore = useProductsStore()
 
-// const products = ref(data1)
+// cartStore.getProducts()
+productStore.getProducts()
 
-const { data, error } = await useFetch<ProductResponse>('https://my-json-server.typicode.com/arumadin/tsg-product-db/products')
+const data = productStore.allProducts
 </script>
 
 <style lang="scss" scoped>

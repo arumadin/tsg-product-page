@@ -21,7 +21,7 @@
         <div v-else>
             add product
         </div>
-        <div v-if="cartStore.total">Total {{ cartStore.total }}</div>
+        <div v-if="cartStore.total">Total {{ (cartStore.total).toFixed(2) }}</div>
     </div>
 </template>
 

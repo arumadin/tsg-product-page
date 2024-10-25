@@ -25,10 +25,12 @@
         <div class="product__recommendations">
             <p>you might also like...</p>
             <div class="product__wrap">
-                <template v-for="(item, index) in products?.products">
+                <template v-for="(item, index) in products">
                     <Card v-if="index < 3" :key="index" :product="item"></Card>
                 </template>
-                <div class="discover-">
+
+                <!-- <Card v-for="(item, index) in products.slice(0,3)" :key="index" :product="item"></Card> -->
+                <div class="discover-more">
                     Discover more
                 </div>
             </div>
@@ -41,13 +43,18 @@
 </template>
 
 <script setup lang="ts">
-// import data1 from '@/data'
 import { type ProductResponse, type Product } from '~/types/types';
-// const products = ref(data1)
+import { useProductsStore } from '~/stores/products';
+
+const productStore = useProductsStore()
+
+productStore.getProducts()
+
+const products = productStore.allProducts
 
 const { id } = useRoute().params
 
-const { data: products } = await useFetch<ProductResponse>('https://my-json-server.typicode.com/arumadin/tsg-product-db/db/')
+// const { data: products } = await useFetch<ProductResponse>('https://my-json-server.typicode.com/arumadin/tsg-product-db/db/')
 
 const { data, error } = await useFetch<Product>(`https://my-json-server.typicode.com/arumadin/tsg-product-db/products/${id}`)
 </script>

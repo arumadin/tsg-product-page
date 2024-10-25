@@ -1,34 +1,35 @@
-import { defineStore } from 'pinia'
-
-import products from '~/data'
+import { defineStore } from 'pinia';
+import { useProductsStore } from './products';
 
 export const useCartStore = defineStore('cart', {
     state: () => (
         {
-            cartContent: {}
+            cartContent: {},
         }
     ),
     getters: {
         formattedCart() {
             return Object.keys(this.cartContent).map(productId => {
                 const product = this.cartContent[productId]
+                const productStore = useProductsStore()
 
                 return {
                     id: product.productId,
-                    image: products.find((p) => p.id === product.productId).photos[0],
-                    name: products.find((p) => p.id === product.productId).name,
-                    price: products.find((p) => p.id === product.productId).price,
-                    discount: products.find((p) => p.id === product.productId).discount,
+                    image: productStore.allProducts.find((p) => p.id === product.productId).images[0].imgUrl,
+                    name: productStore.allProducts.find((p) => p.id === product.productId).title,
+                    price: productStore.allProducts.find((p) => p.id === product.productId).price,
+                    discount: productStore.allProducts.find((p) => p.id === product.productId).discount,
                     quantity: product.quantity,
-                    cost: product.quantity * products.find((p) => p.id === product.productId).price * ((100 - products.find((p) => p.id === product.productId).discount)/100)
+                    cost: (product.quantity * productStore.allProducts.find((p) => p.id === product.productId).price * ((100 - productStore.allProducts.find((p) => p.id === product.productId).discount)/100)).toFixed(2)
                 }
             })
         },
         total() {
             return Object.keys(this.cartContent).reduce((totalPrice, id) => {
-                const product = products.find(p => p.id === parseInt(id))
+                const productStore = useProductsStore()
+                const product = productStore.allProducts.find(p => p.id === parseInt(id))
                 if (product) {
-                    return totalPrice + product.price * this.cartContent[id].quantity * ((100 - product.discount) / 100)
+                    return totalPrice + (product.price * this.cartContent[id].quantity * ((100 - product.discount) / 100))
                 }
 
                 return totalPrice + 0

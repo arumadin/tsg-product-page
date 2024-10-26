@@ -229,7 +229,7 @@ onMounted(() => {
     master
         .add(introSection())
         .add(categorySection())
-        .add(productSection(), ">2")
+        .add(productSection(), ">1")
 
 })
 </script>

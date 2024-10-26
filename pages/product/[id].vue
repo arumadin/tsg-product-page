@@ -11,7 +11,6 @@
             <div class="product__options" v-if="data?.options.length">
                 <p>Options:</p>
                 <div class="product__options-radio">
-                    <!-- <button v-for="option in data?.options">{{ option }}</button> -->
                     <div class="radio-button" v-for="option in data?.options">
                         <label :for="option">{{ option }}
                             <input type="radio" v-model="productOption" :value="option" :id="option" />

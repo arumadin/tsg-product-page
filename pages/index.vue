@@ -20,8 +20,8 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <h3>Our Products</h3>
+        <div class="container" ref="productContainer">
+            <h3 class="section__title" ref="productTitle">Our Products</h3>
             <div class="container product-list" ref="productList">
                 <template v-if="productStore.filteredProduct.length > 0">
                     <Card v-for="(item, index) in productStore.filteredProduct" :key="index" :product="item">
@@ -86,8 +86,14 @@ let categories = ref([
 const productList = ref()
 const intro = ref()
 const categoryList = ref()
+const productTitle = ref()
+const productContainer = ref()
 
 onMounted(() => {
+
+    productStore.resetFilter()
+
+    // start animation
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -107,7 +113,6 @@ onMounted(() => {
         tl.fromTo(categoryList.value.children, {
             autoAlpha: 0,
             y: '100',
-            x: 0
         }, {
             delay: 0.5,
             duration: 1,
@@ -120,15 +125,59 @@ onMounted(() => {
 
     }
 
-    const productSection = () => {
+    const categorySection = () => {
+
+        let mm = gsap.matchMedia();
 
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: ".product-list",
-                start: "top bottom-=200",
+                trigger: ".category",
+                start: "top center+=100",
+                end: "+=600",
+                scrub: true,
                 // markers: true,
             }
         })
+
+        mm.add("(min-width: 1281px)", () => {
+
+            tl.to(categoryList.value.children, {
+                y: 400,
+                stagger: 0.25,
+                duration: 1
+            })
+    
+            tl.to(intro.value, {
+                y: -100,
+                duration: 1,
+                paddingTop: 100,
+                paddingBottom: 50,
+            }, "<")
+    
+            tl.to(intro.value.children, {
+                y: -50,
+                duration: 1,
+                stagger: 0.1
+            }, "<")
+    
+    
+            tl.to(productContainer.value, {
+                y: -200,
+                duration: 1,
+            }, "<")
+    
+            tl.to(productTitle.value, {
+                y: -180,
+                duration: 1,
+            }, ">-30%")
+        })
+
+        return tl
+    }
+
+    const productSection = () => {
+
+        const tl = gsap.timeline()
 
         tl.from(productList.value.children, {
             delay: 0.5,
@@ -136,15 +185,17 @@ onMounted(() => {
             y: '100',
             autoAlpha: 0,
             stagger: 0.25,
-        }, ">-50%")
+        })
 
         return tl
     }
 
     const master = gsap.timeline();
+
     master
         .add(introSection())
-    // .add(productSection())
+        .add(categorySection())
+        .add(productSection(), ">2")
 
 })
 </script>
@@ -204,7 +255,7 @@ onMounted(() => {
 
     p {
 
-        @include mobile{
+        @include mobile {
             width: 80%;
             margin: 0 auto;
         }
@@ -212,7 +263,17 @@ onMounted(() => {
 
     @include mobile {
         max-width: 100%;
-        padding: 5vh 0
+        padding: 10vh 0
+    }
+}
+
+.section__title {
+    width: 100%;
+    font-size: 60px;
+    text-align: center;
+
+    @include nonDesktop {
+        font-size: 30px;
     }
 }
 </style>

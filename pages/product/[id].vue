@@ -82,7 +82,6 @@ onMounted(() => {
                 start: "top-=100 top",
                 end: "200 top",
                 scrub: true,
-                markers: true,
             }
         })
     
@@ -180,16 +179,5 @@ onMounted(() => {
     &__more-info {
         margin-top: 60px;
     }
-}
-
-.discover-more {
-    font-family: 'Bodoni Moda';
-    font-size: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 100px;
-    height: 100%
 }
 </style>

@@ -6,8 +6,8 @@
                 <template v-for="(item, index) in products">
                     <Card v-if="index < 3" :key="index" :product="item"></Card>
                 </template>
-                <div>
-                    <NuxtLink to="/" class="discover-more">
+                <div class="discover-more">
+                    <NuxtLink to="/">
                         Discover more..
                     </NuxtLink>
                 </div>
@@ -49,6 +49,20 @@ const props = defineProps(["products"])
                 }
             }
         }
+    }
+}
+
+.discover-more {
+    font-family: 'Bodoni Moda';
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    
+    a {
+        padding-bottom: 100px;
     }
 }
 </style>

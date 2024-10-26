@@ -1,6 +1,6 @@
 <template>
     <footer>
-        Footer
+        The Secret Garden by Arum Adiningtyas. 2024.
     </footer>
 </template>
 
@@ -10,6 +10,10 @@
 
 <style lang="scss" scoped>
 footer {
-    margin-top: 100px;
+    margin-top: 50px;
+    padding: 40px 20px;
+    background-color: $sky-blue;
+    display: flex;
+    justify-content: center;
 }
 </style>

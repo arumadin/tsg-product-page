@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div>
+        <div class="mt-12">
             <slot></slot>
         </div>
         <Footer></Footer>

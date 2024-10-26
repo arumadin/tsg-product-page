@@ -1,9 +1,11 @@
 <template>
     <header>
-        <NuxtLink to="/">
-            <h1>The Secret Garden</h1>
-        </NuxtLink>
-        <NuxtLink to="/cart">Cart ({{ cartStore.totalProducts }})</NuxtLink>
+        <div class="header__wrap">
+            <NuxtLink to="/">
+                <h1>The Secret Garden</h1>
+            </NuxtLink>
+            <NuxtLink to="/cart">Cart ({{ cartStore.totalProducts }})</NuxtLink>
+        </div>
     </header>
 </template>
 
@@ -14,9 +16,16 @@ const cartStore = useCartStore()
 
 <style lang="scss" scoped>
 header {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    margin-bottom: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+
+    .header__wrap {
+        display: flex;
+        justify-content: center;
+        padding: 20px 20px 0;
+        margin-bottom: 20px;
+    }
 }
 </style>

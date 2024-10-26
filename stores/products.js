@@ -25,6 +25,9 @@ export const useProductsStore = defineStore('products', {
 
             let data = this.products.filter((p) => p.category === category)
             this.filteredProducts = data
+        },
+        resetFilter() {
+            this.filteredProducts = []
         }
     }
 

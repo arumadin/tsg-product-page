@@ -1,17 +1,18 @@
 <template>
-    <div class="product__gallery" >
-        <div class="swiper_wrapper" ref="mainSlider">
+    <div class="product__gallery">
+        <div class="swiper_wrapper">
             <Swiper v-bind="SwiperConfig" :thumbs="{ swiper: thumbsSwiper }" @swiper="setSwiper" class="slider__main">
                 <SwiperSlide v-for="(slide, idx) in images" :key="idx">
                     <img :src="slide.imgUrl" />
                 </SwiperSlide>
             </Swiper>
             <div class="swiper_controls">
-                <div class="swiper_controls_prev"></div>
+                <div class="swiper_controls_prev">
+                </div>
                 <div class="swiper_controls_next"></div>
             </div>
         </div>
-        <div class="slider__nav" ref="thumbSlider">
+        <div class="slider__nav">
             <Swiper v-bind="SwiperThumbsConfig" @swiper="setThumbsSwiper">
                 <SwiperSlide v-for="(slide, idx) in images" :key="idx">
                     <img :src="slide.imgUrl" />
@@ -23,12 +24,6 @@
 
 <script setup lang="ts">
 import SwiperTypes from 'swiper'
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-// ref for animation
-const mainSlider = ref()
-const thumbSlider = ref()
 
 // set up slider image
 const props = defineProps(["images"])
@@ -65,38 +60,6 @@ const SwiperThumbsConfig = {
     followFinger: false,
 };
 
-// animation
-onMounted(() => {
-    
-    // gsap.registerPlugin(ScrollTrigger);
-    // let mm = gsap.matchMedia();
-
-    // mm.add("(min-width: 1281px)", () => {
-
-    //     const tl = gsap.timeline({
-    //         scrollTrigger: {
-    //             trigger: ".product__gallery",
-    //             start: "top top",
-    //             end: "200 top",
-    //             scrub: true,
-    //             markers: true,
-    //         }
-    //     })
-    
-    //     const speed = 0.1;
-    //     const movement = mainSlider.value.offsetHeight * speed * -1
-    //     tl.to(mainSlider.value, {
-    //         y: movement,
-    //         ease: "none",
-    //         height: "50%"
-    //     }, 0)
-    
-    //     tl.to(thumbSlider.value, {
-    //         y: movement,
-    //         ease: "none",
-    //     }, "<")
-    // })
-})
 </script>
 
 <style lang="scss" scoped>
@@ -110,30 +73,39 @@ onMounted(() => {
 
 .swiper_controls {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: yellow;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
+    top: 50%;
+    width: 100%;
+    height: 50px;
     z-index: 10;
-    background-color: transparent;
+    cursor: pointer;
 
-    div {
-        flex-grow: 1;
+    &_prev,
+    &_next {
+        width: 50px;
+        height: 50px;
+        mask-size: cover;
+        background-color: $pale-yellow;
+        transition: all 0.3s ease-in;
+
+
+        &:hover {
+            background-color: $yellow;
+        }
     }
 
-    // &_prev {
-    //     // cursor: url(assets/btn-left.png) 64 64, pointer;
-    //     cursor: pointer;
-    // }
+    &_prev {
+        position: absolute;
+        left: 10px;
+        transform: translate(0, -50%);
+        mask-image: url("@/assets/TablerCircleArrowLeft.svg");
+    }
 
-    // &_next {
-    //     // cursor: url(assets/btn-right.png) 64 64, pointer;
-    //     cursor: pointer;
-    // }
+    &_next {
+        position: absolute;
+        right: 10px;
+        transform: translate(0, -50%);
+        mask-image: url("@/assets/TablerCircleArrowRight.svg");
+    }
 }
 
 .swiper-slide {

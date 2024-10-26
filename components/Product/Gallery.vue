@@ -1,8 +1,8 @@
 <template>
     <div class="product__gallery">
         <div class="swiper_wrapper">
-            <Swiper :height="300" v-bind="SwiperConfig" :thumbs="{ swiper: thumbsSwiper }" @swiper="setSwiper"
-                class="main-slider">
+            <Swiper v-bind="SwiperConfig" :thumbs="{ swiper: thumbsSwiper }" @swiper="setSwiper"
+                class="slider__main">
                 <SwiperSlide v-for="(slide, idx) in images" :key="idx">
                     <img :src="slide.imgUrl" />
                 </SwiperSlide>
@@ -12,7 +12,7 @@
                 <div class="swiper_controls_next"></div>
             </div>
         </div>
-        <Swiper :height="300" v-bind="SwiperThumbsConfig" @swiper="setThumbsSwiper" class="thumbs">
+        <Swiper v-bind="SwiperThumbsConfig" @swiper="setThumbsSwiper" class="slider__nav">
             <SwiperSlide v-for="(slide, idx) in images" :key="idx">
                 <img :src="slide.imgUrl" />
             </SwiperSlide>
@@ -81,15 +81,15 @@ const SwiperThumbsConfig = {
         flex-grow: 1;
     }
 
-    &_prev {
-        // cursor: url(assets/btn-left.png) 64 64, pointer;
-        cursor: pointer;
-    }
+    // &_prev {
+    //     // cursor: url(assets/btn-left.png) 64 64, pointer;
+    //     cursor: pointer;
+    // }
 
-    &_next {
-        // cursor: url(assets/btn-right.png) 64 64, pointer;
-        cursor: pointer;
-    }
+    // &_next {
+    //     // cursor: url(assets/btn-right.png) 64 64, pointer;
+    //     cursor: pointer;
+    // }
 }
 
 .swiper-slide {
@@ -104,18 +104,20 @@ const SwiperThumbsConfig = {
     transition-timing-function: ease-in;
 }
 
-.thumbs {
-    margin-top: 10px;
+.slider__nav {
+    margin: 20px;
 
     .swiper-slide {
-        width: 25%;
         height: 100%;
         opacity: 0.3;
         cursor: pointer;
+        padding: 5px;
+        box-sizing: border-box;
     }
 
     .swiper-slide-thumb-active {
         opacity: 1;
+        border: solid 3px $pink;
     }
 }
 

@@ -13,14 +13,15 @@ export const useCartStore = defineStore('cart', {
                 const product = this.cartContent[productId]
                 const productStore = useProductsStore()
 
+                const defaultOption =  productStore.allProducts.find((p) => p.id === product.productId).options[0] ?? ''
+
                 return {
                     id: product.productId,
                     image: productStore.allProducts.find((p) => p.id === product.productId).images[0].imgUrl,
                     name: productStore.allProducts.find((p) => p.id === product.productId).title,
-                    price: productStore.allProducts.find((p) => p.id === product.productId).price,
-                    discount: productStore.allProducts.find((p) => p.id === product.productId).discount,
                     quantity: product.quantity,
-                    cost: (product.quantity * productStore.allProducts.find((p) => p.id === product.productId).price * ((100 - productStore.allProducts.find((p) => p.id === product.productId).discount)/100)).toFixed(2)
+                    selectedOption: product.selectedOption ?? defaultOption,
+                    price: (product.quantity * productStore.allProducts.find((p) => p.id === product.productId).price * ((100 - productStore.allProducts.find((p) => p.id === product.productId).discount)/100)).toFixed(2)
                 }
             })
         },
@@ -42,16 +43,20 @@ export const useCartStore = defineStore('cart', {
         }
     },
     actions: {
-        add(productId) {
+        add(productId, qty, option) {
+            let quantity = qty ? qty : 1;
+
             if (this.cartContent.hasOwnProperty(productId)) {
                 this.cartContent[productId] = {
                     productId,
-                    quantity: this.cartContent[productId].quantity + 1
+                    quantity: this.cartContent[productId].quantity + quantity,
+                    selectedOption: option
                 }
             } else {
                 this.cartContent[productId] = {
                     productId,
-                    quantity: 1
+                    quantity: quantity,
+                    selectedOption: option
                 }
             }
         },

@@ -10,6 +10,7 @@ body {
 
 a {
     text-decoration: none;
+
     &:visited {
         color: $dark-grey;
         text-decoration: none;
@@ -18,9 +19,14 @@ a {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     font-family: 'Bodoni Moda';
     font-weight: 500;
+}
+
+h3 {
+    font-size: 24px;
 }
 
 .container {
@@ -42,4 +48,69 @@ button,
     border: 0;
     text-align: center;
     cursor: pointer;
+}
+
+.btn {
+
+    &--big {
+        font-size: 24px;
+        padding: 10px 50px;
+        border-radius: 45px;
+        font-family: 'Bodoni Moda';
+        background-color: $blue;
+        color: $bg-white;
+    }
+
+    &--icon {
+        border-radius: 100%;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
+
+.bg {
+
+    &--pale-yellow {
+        background-color: $pale-yellow;
+    }
+
+    &--pale-green {
+        background-color: $pale-green;
+    }
+}
+
+p {
+    margin-top: 0;
+}
+
+.radio-button {
+    input {
+        display: none;
+    }
+
+    label {
+        border: solid 1px $pink;
+        background-color: transparent;
+        padding: 5px 10px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        text-align: center;
+        cursor: pointer;
+
+        &:has(input:checked) {
+            background-color: $pink;
+            color: $bg-white;
+        }
+    }
 }

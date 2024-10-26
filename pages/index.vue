@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="container h-100vh">
+        <div class="container container--intro">
             <div class="intro" ref="intro">
                 <h3>Welcome to</h3>
                 <h2>The Secret Garden,</h2>
@@ -28,7 +28,7 @@
                     </Card>
                 </template>
                 <template v-else>
-                    <Card v-for="(item, index) in data" :key="index" :product="item">
+                    <Card v-for="(item, index) in productData" :key="index" :product="item">
                     </Card>
                 </template>
             </div>
@@ -44,7 +44,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // get data from Products Store
 const productStore = useProductsStore()
 productStore.getProducts()
-const data = productStore.allProducts
+const productData = productStore.allProducts
 
 // Data for categories
 let categories = ref([
@@ -132,43 +132,77 @@ onMounted(() => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".category",
-                start: "top center+=100",
+                start: "top top+=500",
                 end: "+=600",
                 scrub: true,
                 // markers: true,
             }
         })
 
-        mm.add("(min-width: 1281px)", () => {
-
+        mm.add("(min-width: 769px)", () => {
             tl.to(categoryList.value.children, {
                 y: 400,
                 stagger: 0.25,
                 duration: 1
             })
-    
+
             tl.to(intro.value, {
                 y: -100,
                 duration: 1,
                 paddingTop: 100,
                 paddingBottom: 50,
             }, "<")
-    
+
             tl.to(intro.value.children, {
                 y: -50,
                 duration: 1,
                 stagger: 0.1
             }, "<")
-    
-    
+
+
             tl.to(productContainer.value, {
                 y: -200,
                 duration: 1,
             }, "<")
-    
-            tl.to(productTitle.value, {
+
+            tl.fromTo(productTitle.value, {
+                y: 0,
+                autoAlpha: 0
+            },{
                 y: -180,
                 duration: 1,
+                autoAlpha: 1
+            }, ">-30%")
+
+        })
+
+
+        mm.add("(max-width: 768px)", () => {
+
+            tl.to(categoryList.value, {
+                y: 40,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: ".category",
+                    start: "top top+=500",
+                    end: "+=60",
+                    scrub: true,
+                }
+            })
+
+            tl.fromTo(productTitle.value, {
+                y: 0,
+                autoAlpha: 0,
+            }, {
+                y: -220,
+                duration: 1,
+                autoAlpha: 1,
+                scrollTrigger: {
+                    trigger: ".category",
+                    start: "top top+=500",
+                    end: "+=200",
+                    scrub: true,
+                }
             }, ">-30%")
         })
 
@@ -221,6 +255,10 @@ onMounted(() => {
 
 .category {
 
+    @include mobile {
+        height: 200px;
+    }
+
     &__list {
         display: flex;
         justify-content: center;
@@ -231,10 +269,22 @@ onMounted(() => {
 
         @include mobile {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 30px 20px;
+            gap: 10px 10px;
+            margin-bottom: 0;
+
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            grid-template-rows: repeat(3, 1fr);
         }
+    }
+}
+
+.container--intro {
+    height: 960px;
+
+    @include mobile {
+        height: calc(460px + 200px)
     }
 }
 
@@ -242,7 +292,7 @@ onMounted(() => {
     max-width: 540px;
     margin: 0 auto;
     text-align: center;
-    padding: 15vh 0;
+    padding: 130px 0;
 
     h3 {
         margin: 0;
@@ -263,7 +313,11 @@ onMounted(() => {
 
     @include mobile {
         max-width: 100%;
-        padding: 10vh 0
+        height: 460px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
     }
 }
 
@@ -271,9 +325,15 @@ onMounted(() => {
     width: 100%;
     font-size: 60px;
     text-align: center;
+    padding-top: 100px;
+    margin: 0;
 
     @include nonDesktop {
         font-size: 30px;
+    }
+
+    @include mobile {
+        padding-top: 0;
     }
 }
 </style>

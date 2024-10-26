@@ -28,7 +28,7 @@ const cartStore = useCartStore()
 <style lang="scss" scoped>
 .card {
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
 
     @include nonDesktop {
         padding-bottom: 0;
@@ -66,8 +66,6 @@ const cartStore = useCartStore()
         text-decoration: none;  
         display: flex;
         flex-direction: column;
-        background-color: white;
-        min-height: 400px;
         height: 100%;
 
         @include mobile {
@@ -97,7 +95,7 @@ const cartStore = useCartStore()
         flex-wrap: wrap;
         flex-grow: 1;
         z-index: 2;
-        padding: 20px 20px 30px;
+        padding: 10px 0;
     }
 
     &__title {

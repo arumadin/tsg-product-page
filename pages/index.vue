@@ -1,7 +1,25 @@
 <template>
     <main>
-        <div>Banner</div>
-        <Category></Category>
+        <div class="container h-100vh">
+            <div class="intro" ref="intro">
+                <h3>Welcome to</h3>
+                <h2>The Secret Garden,</h2>
+                <p>Where we believe that good food is the foundation of a happy life.
+                    <br>
+                    We're committed to bringing you the finest quality products from around the world, all in one
+                    convenient
+                    location.
+                    <br>
+                    Discover a world of flavor, freshness, and exceptional service.
+                </p>
+            </div>
+            <div class="category">
+                <div class="category__list" ref="categoryList">
+                    <CategoryItem v-for="(category, index) in categories" :key="index" :category="category">
+                    </CategoryItem>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <h3>Our Products</h3>
             <div class="container product-list" ref="productList">
@@ -21,24 +39,113 @@
 <script setup lang="ts">
 import { useProductsStore } from '~/stores/products';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // get data from Products Store
 const productStore = useProductsStore()
 productStore.getProducts()
 const data = productStore.allProducts
 
+// Data for categories
+let categories = ref([
+    {
+        title: "Fruit",
+        icon: "emojione:tangerine"
+    },
+    {
+        title: "Baking",
+        icon: "emojione:bread"
+    },
+    {
+        title: "Biscuit",
+        icon: "emojione:cookie"
+    },
+    {
+        title: "Granola",
+        icon: "emojione:honey-pot"
+    },
+    {
+        title: "Show All",
+        icon: "emojione:strawberry"
+    },
+    {
+        title: "Snack",
+        icon: "emojione:popcorn"
+    },
+    {
+        title: "Tea",
+        icon: "emojione:teacup-without-handle"
+    },
+    {
+        title: "Yogurt",
+        icon: "emojione:glass-of-milk"
+    }
+])
+
 // Animation
 const productList = ref()
+const intro = ref()
+const categoryList = ref()
 
 onMounted(() => {
 
-    gsap.from(productList.value.children, {
-        delay: 0.5,
-        duration: 1,
-        y: '100',
-        autoAlpha: 0,
-        stagger: 0.25,
-    })
+    gsap.registerPlugin(ScrollTrigger);
+
+    const introSection = () => {
+        const tl = gsap.timeline()
+        tl.fromTo(intro.value.children, {
+            autoAlpha: 0,
+            y: '100',
+        }, {
+            delay: 0.5,
+            duration: 1,
+            stagger: 0.25,
+            autoAlpha: 1,
+            y: 0
+        })
+
+        tl.fromTo(categoryList.value.children, {
+            autoAlpha: 0,
+            y: '100',
+            x: 0
+        }, {
+            delay: 0.5,
+            duration: 1,
+            stagger: 0.25,
+            autoAlpha: 1,
+            y: 0,
+        })
+
+        return tl
+
+    }
+
+    const productSection = () => {
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".product-list",
+                start: "top bottom-=200",
+                // markers: true,
+            }
+        })
+
+        tl.from(productList.value.children, {
+            delay: 0.5,
+            duration: 1,
+            y: '100',
+            autoAlpha: 0,
+            stagger: 0.25,
+        }, ">-50%")
+
+        return tl
+    }
+
+    const master = gsap.timeline();
+    master
+        .add(introSection())
+    // .add(productSection())
+
 })
 </script>
 
@@ -58,6 +165,54 @@ onMounted(() => {
 
     @include mobile {
         gap: 30px 20px;
+    }
+}
+
+.category {
+
+    &__list {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 50px;
+        justify-items: center;
+
+        @include mobile {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 20px;
+        }
+    }
+}
+
+.intro {
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15vh 0;
+
+    h3 {
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 28px;
+        margin-top: 0;
+    }
+
+    p {
+
+        @include mobile{
+            width: 80%;
+            margin: 0 auto;
+        }
+    }
+
+    @include mobile {
+        max-width: 100%;
+        padding: 5vh 0
     }
 }
 </style>

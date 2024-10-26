@@ -11,10 +11,19 @@ body {
 a {
     text-decoration: none;
     color: $dark-grey;
+    transition: all 0.3s ease-in;
 
     &:visited {
         color: $dark-grey;
         text-decoration: none;
+    }
+
+    &.link--text {
+        cursor: pointer;
+
+        &:hover {
+            color: $pink;
+        }
     }
 }
 
@@ -45,10 +54,11 @@ button,
     padding: 8px 20px;
     border-radius: 20px;
     box-sizing: border-box;
-    background-color: $light-blue;
+    background-color: $pink;
     border: 0;
     text-align: center;
     cursor: pointer;
+    color: $bg-white;
 }
 
 .btn {
@@ -58,7 +68,7 @@ button,
         padding: 10px 50px;
         border-radius: 45px;
         font-family: 'Bodoni Moda';
-        background-color: $blue;
+        background-color: $pink;
         color: $bg-white;
     }
 
@@ -72,6 +82,7 @@ button,
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        color: $dark-grey;
 
         span {
             width: 30px;
@@ -102,7 +113,7 @@ p {
     }
 
     label {
-        border: solid 1px $pink;
+        border: solid 1px $light-blue;
         background-color: transparent;
         padding: 5px 10px;
         border-radius: 20px;
@@ -111,8 +122,7 @@ p {
         cursor: pointer;
 
         &:has(input:checked) {
-            background-color: $pink;
-            color: $bg-white;
+            background-color: $light-blue;
         }
     }
 }

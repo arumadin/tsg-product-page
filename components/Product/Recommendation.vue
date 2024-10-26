@@ -7,7 +7,7 @@
                     <Card v-if="index < 3" :key="index" :product="item"></Card>
                 </template>
                 <div class="discover-more">
-                    <NuxtLink to="/">
+                    <NuxtLink to="/" class="link--text">
                         Discover more..
                     </NuxtLink>
                 </div>

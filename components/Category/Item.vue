@@ -19,6 +19,7 @@ const productStore = useProductsStore()
     position: relative;
     width: 100px;
     height: 100px;
+    z-index: 9;
 
     &::before {
         position: absolute;

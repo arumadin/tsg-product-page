@@ -15,7 +15,7 @@
             </div>
             <div v-if="product.label.length > 0" class="card__label">{{ product.label }}</div>
         </NuxtLink>
-        <div class="btn btn--addcart" @click.prevent="cartStore.add(product.id)">add to cart</div>
+        <div class="btn btn--addcart" @click.prevent="cartStore.add(product.id)">Add to Cart</div>
     </div>
 </template>
 

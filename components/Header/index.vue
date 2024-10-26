@@ -4,7 +4,7 @@
             <NuxtLink to="/" class="logo">
                 <h1>The Secret Garden</h1>
             </NuxtLink>
-            <NuxtLink to="/cart" class="cart__button">Cart ({{ cartStore.totalProducts }})</NuxtLink>
+            <NuxtLink to="/cart" class="cart__button link--text">Cart ({{ cartStore.totalProducts }})</NuxtLink>
         </div>
     </header>
 </template>
@@ -28,6 +28,7 @@ header {
         padding: 20px 20px 0;
         margin-bottom: 20px;
         grid-template-columns: 100px auto 100px;
+        gap: 0 20px;
         align-items: center;
         box-sizing: border-box;
 
@@ -49,6 +50,8 @@ header {
 
             @include mobile {
                 font-size: 20px;
+                text-align: left;
+                margin: 0
             }
         }
     }
@@ -56,9 +59,13 @@ header {
     .cart__button {
         grid-column: 3 / span 1;
         text-align: right;
+        padding: 20px 0;
+        width: fit-content;
 
         @include mobile {
-            grid-column: 2 / spam 1
+            grid-column: 2 / span 1;
+            width: 100%;
+            text-align: right;
         }
     }
 

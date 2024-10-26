@@ -1,8 +1,7 @@
 <template>
-    <div class="product__gallery">
-        <div class="swiper_wrapper">
-            <Swiper v-bind="SwiperConfig" :thumbs="{ swiper: thumbsSwiper }" @swiper="setSwiper"
-                class="slider__main">
+    <div class="product__gallery" >
+        <div class="swiper_wrapper" ref="mainSlider">
+            <Swiper v-bind="SwiperConfig" :thumbs="{ swiper: thumbsSwiper }" @swiper="setSwiper" class="slider__main">
                 <SwiperSlide v-for="(slide, idx) in images" :key="idx">
                     <img :src="slide.imgUrl" />
                 </SwiperSlide>
@@ -12,19 +11,27 @@
                 <div class="swiper_controls_next"></div>
             </div>
         </div>
-        <Swiper v-bind="SwiperThumbsConfig" @swiper="setThumbsSwiper" class="slider__nav">
-            <SwiperSlide v-for="(slide, idx) in images" :key="idx">
-                <img :src="slide.imgUrl" />
-            </SwiperSlide>
-        </Swiper>
+        <div class="slider__nav" ref="thumbSlider">
+            <Swiper v-bind="SwiperThumbsConfig" @swiper="setThumbsSwiper">
+                <SwiperSlide v-for="(slide, idx) in images" :key="idx">
+                    <img :src="slide.imgUrl" />
+                </SwiperSlide>
+            </Swiper>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
 import SwiperTypes from 'swiper'
-const props = defineProps(["images"])
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// ref for animation
+const mainSlider = ref()
+const thumbSlider = ref()
+
+// set up slider image
+const props = defineProps(["images"])
 const mainSwiper = ref<SwiperTypes | null>(null);
 const thumbsSwiper = ref<SwiperTypes | null>(null);
 
@@ -57,11 +64,48 @@ const SwiperThumbsConfig = {
     loop: false,
     followFinger: false,
 };
+
+// animation
+onMounted(() => {
+    
+    // gsap.registerPlugin(ScrollTrigger);
+    // let mm = gsap.matchMedia();
+
+    // mm.add("(min-width: 1281px)", () => {
+
+    //     const tl = gsap.timeline({
+    //         scrollTrigger: {
+    //             trigger: ".product__gallery",
+    //             start: "top top",
+    //             end: "200 top",
+    //             scrub: true,
+    //             markers: true,
+    //         }
+    //     })
+    
+    //     const speed = 0.1;
+    //     const movement = mainSlider.value.offsetHeight * speed * -1
+    //     tl.to(mainSlider.value, {
+    //         y: movement,
+    //         ease: "none",
+    //         height: "50%"
+    //     }, 0)
+    
+    //     tl.to(thumbSlider.value, {
+    //         y: movement,
+    //         ease: "none",
+    //     }, "<")
+    // })
+})
 </script>
 
 <style lang="scss" scoped>
 .swiper_wrapper {
     position: relative;
+
+    .slider__main {
+        height: 100%;
+    }
 }
 
 .swiper_controls {

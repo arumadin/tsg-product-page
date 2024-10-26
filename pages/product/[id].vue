@@ -1,7 +1,7 @@
 <template>
     <div class="product">
         <ProductGallery :images="data?.images"></ProductGallery>
-        <div class="product__info">
+        <div class="product__info" ref="productInfo">
             <div v-if="data?.label.length" class="product__label">{{ data.label }}</div>
             <h2 class="product__title"> {{ data?.title }}</h2>
             <div class="product__price">${{ data?.price }}</div>
@@ -32,32 +32,21 @@
             </div>
             <button class="btn--addcart" @click.prevent="cartStore.add(data?.id, quantity, productOption); quantity = 1; productOption = data?.options[0]">Add to Cart</button>
             <div class="product__more-info">
-                more info, ingredients, shipping and returns
+                more info, ingredients, shipping and returns.
+                <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam labore vitae debitis sunt sapiente, rerum maxime, eum vero provident odit velit reiciendis cupiditate maiores sed? Alias quam odio culpa id error sint sunt debitis dolor quibusdam, ipsum nihil ea itaque, aliquam atque ad inventore, in temporibus dignissimos dicta doloremque exercitationem.
+                <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione alias enim dolore vero est? Maiores, recusandae illum magni autem aliquid cumque iusto quaerat nihil voluptatibus facere laudantium sequi laboriosam eum dicta quos dolore culpa inventore enim non facilis rerum. Iure officiis quae, veniam fugiat nostrum deserunt pariatur minima nulla itaque.
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="product__recommendations">
-            <h3>You might also like...</h3>
-            <div class="product__wrap">
-                <template v-for="(item, index) in products">
-                    <Card v-if="index < 3" :key="index" :product="item"></Card>
-                </template>
-                <NuxtLink to="/" class="discover-more">
-                    Discover more..
-                </NuxtLink>
-            </div>
-        </div>
-
-
-
-    </div>
+    <ProductRecommendation :products="products"></ProductRecommendation>
 
 </template>
 
 <script setup lang="ts">
 import { type ProductResponse, type Product } from '~/types/types';
 import { useProductsStore } from '~/stores/products';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { useCartStore } from '~/stores/cart';
 const cartStore = useCartStore()
@@ -78,6 +67,32 @@ const handleMinus = () => {
 
     quantity.value--
 }
+
+// Animation
+const productInfo = ref()
+onMounted(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1281px)", () => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".product",
+                start: "top-=100 top",
+                end: "200 top",
+                scrub: true,
+                markers: true,
+            }
+        })
+    
+        tl.to(productInfo.value, {
+            y: 200,
+            ease: "none",
+        }, 0)
+    })
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -91,45 +106,26 @@ const handleMinus = () => {
     @include nonDesktop {
         grid-template-columns: repeat(1, minmax(0, 1fr));
         grid-template-rows: 1fr auto;
+        height: auto
     }
 
     &__info {
         width: 70%;
-        margin-top: 50px;
+        padding-top: 50px;
+        height: calc(100% - 250px);
+        overflow: hidden;
 
         @include nonDesktop {
             max-width: 100%;
             width: 60%;
             margin: 40px 20px;
+            padding-top: 0;
+            height: auto;
         }
 
         @include mobile {
             width: calc(100% - 40px);
             margin: 20px;
-        }
-    }
-
-    &__wrap {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-
-        @include nonDesktop {
-            grid-template-columns: repeat(3, 1fr);
-
-            div:nth-child(n+4) {
-                display: none;
-            }
-
-        }
-
-        @include mobile {
-            grid-template-columns: repeat(2, 1fr);
-
-            div:nth-child(n+3) {
-                display: none;
-
-            }
         }
     }
 
@@ -184,10 +180,6 @@ const handleMinus = () => {
     &__more-info {
         margin-top: 60px;
     }
-
-    &__recommendations {
-        margin-top: 60px;
-    }
 }
 
 .discover-more {
@@ -197,6 +189,7 @@ const handleMinus = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 100px
+    padding-bottom: 100px;
+    height: 100%
 }
 </style>

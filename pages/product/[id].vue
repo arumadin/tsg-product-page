@@ -30,12 +30,7 @@
                     <Icon name="gravity-ui:plus" />
                 </button>
             </div>
-            <button class="btn--addcart" @click.prevent="cartStore.add(data?.id, quantity, productOption); quantity = 1; productOption = data?.options[0]">Add to Cart</button>
-            <!-- <div class="product__more-info">
-                more info, ingredients, shipping and returns.
-                <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam labore vitae debitis sunt sapiente, rerum maxime, eum vero provident odit velit reiciendis cupiditate maiores sed? Alias quam odio culpa id error sint sunt debitis dolor quibusdam, ipsum nihil ea itaque, aliquam atque ad inventore, in temporibus dignissimos dicta doloremque exercitationem.
-                <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione alias enim dolore vero est? Maiores, recusandae illum magni autem aliquid cumque iusto quaerat nihil voluptatibus facere laudantium sequi laboriosam eum dicta quos dolore culpa inventore enim non facilis rerum. Iure officiis quae, veniam fugiat nostrum deserunt pariatur minima nulla itaque.
-            </div> -->
+            <button class="btn btn--medium" @click.prevent="cartStore.add(data?.id, quantity, productOption); quantity = 1; productOption = data?.options[0]">Add to Cart</button>
         </div>
     </div>
     <ProductRecommendation :products="products"></ProductRecommendation>
@@ -148,7 +143,7 @@ onMounted(() => {
         border-bottom: solid 1px $yellow;
         padding: 10px 0;
         width: 100%;
-        padding-bottom: 10px;
+        padding-bottom: 20px;
 
         p {
             margin-right: 10px;

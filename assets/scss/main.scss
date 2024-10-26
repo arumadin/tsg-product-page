@@ -59,17 +59,29 @@ button,
     text-align: center;
     cursor: pointer;
     color: $bg-white;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+        color: $dark-grey;
+        background-color: $light-pink;
+    }
 }
 
 .btn {
 
-    &--big {
-        font-size: 24px;
+    &--big,
+    &--medium {
         padding: 10px 50px;
         border-radius: 45px;
         font-family: 'Bodoni Moda';
-        background-color: $pink;
-        color: $bg-white;
+    }
+
+    &--big {
+        font-size: 24px;
+    }
+
+    &--medium {
+        font-size: 18px;
     }
 
     &--icon {
@@ -93,8 +105,24 @@ button,
 
 .bg {
 
+    &--yellow {
+        background-color: $yellow;
+        color: $dark-grey;
+
+        &:hover {
+            background-color: $pale-yellow;
+            color: $dark-grey;
+        }
+    }
+
     &--pale-yellow {
-        background-color: $pale-yellow;
+        background-color: transparent;
+        color: $dark-grey;
+
+        &:hover {
+            background-color: $yellow;
+            color: $dark-grey;
+        }
     }
 
     &--pale-green {
@@ -132,7 +160,6 @@ p {
 }
 
 .h-100vh {
-    height: 100vh;
 
     @include mobile {
         height: auto;

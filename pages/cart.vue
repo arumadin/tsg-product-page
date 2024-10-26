@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container cart">
         <h2>My Cart</h2>
         <div v-if="cartStore.formattedCart.length > 0">
             <div v-for="item in cartStore.formattedCart" :key="item.id">
@@ -33,7 +33,7 @@
                         <button class="btn--icon bg--pale-yellow" @click="cartStore.add(item.id)">
                             <Icon name="gravity-ui:plus" />
                         </button>
-                        <button class="bg--pale-yellow" @click="cartStore.removeAll(item.id)">
+                        <button class="bg--yellow" @click="cartStore.removeAll(item.id)">
                             Delete
                         </button>
                     </div>
@@ -67,6 +67,7 @@ const discountedPrice = computed(() => {
 
 <style lang="scss" scoped>
 .cart {
+    min-height: calc(100vh - 150px - 100px);
 
     &--empty {
         width: 100%;
